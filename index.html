@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--<meta http-equiv="refresh" content="60"/>-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="./style.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico?v=2" type="image/x-icon">
+    <title>Dynamic Quadrant</title>
+
+    <script type="text/javascript">
+      function resizeFrames()
+      {
+         //hideFrames();
+
+         // What's the page height?
+         var height = document.body.scrollHeight;
+         var width = document.body.scrollWidth;
+         // Going to 'pipe' the data to the parent through the helpframe..
+         var tlframe = document.getElementById('tl-frame');
+         tlframe.height = height / 2;
+         tlframe.width = width / 2;
+         trframe = document.getElementById('tr-frame');
+         trframe.height = tlframe.height;
+         trframe.width = width - tlframe.width;
+         blframe = document.getElementById('bl-frame');
+         blframe.height = height - tlframe.height;
+         blframe.width = tlframe.width;
+         brframe = document.getElementById('br-frame');
+         brframe.height = blframe.height;
+         brframe.width = trframe.width;
+
+         //showFrames();
+      }
+      function hideFrames() {
+        document.getElementById('url-tl-frame').style.display='hidden';
+        document.getElementById('url-tr-frame').style.display='hidden';
+        document.getElementById('url-bl-frame').style.display='hidden';
+        document.getElementById('url-br-frame').style.display='hidden';
+      }
+       function showFrames() {
+        document.getElementById('url-tl-frame').style.display='block';
+        document.getElementById('url-tr-frame').style.display='block';
+        document.getElementById('url-bl-frame').style.display='block';
+        document.getElementById('url-br-frame').style.display='block';
+      }
+      function initFrames() {
+        document.getElementById('url-tl-frame').value = getUrl('tl-frame');
+        document.getElementById('url-tr-frame').value = getUrl('tr-frame');
+        document.getElementById('url-bl-frame').value = getUrl('bl-frame');
+        document.getElementById('url-br-frame').value = getUrl('br-frame');
+      }
+      function getUrl(frameId) {
+        return document.getElementById(frameId).src;
+      }
+      function changeURL(frameId, urlField) {
+        document.getElementById(frameId).src = urlField.value;
+      }
+      /*function getMetricsUrl(frameId) {
+        var trframe = document.getElementById(frameId);
+        var url = 'http://xx.yyy.zz.www:8080/url&width=' + trframe.width + '&height=' + trframe.height;
+        alert(url);
+        return url;
+      }*/
+
+      function onLoad() {
+        resizeFrames();
+        initFrames();
+      }
+
+    </script>
+</head>
+<body onload="onLoad()">
+    <div class="tl-container">
+        <iframe id="tl-frame" src="info.html" scrolling="no"></iframe>
+    </div>
+    <div class="tr-container">
+        <iframe id="tr-frame" src="info.html" scrolling="no"></iframe>
+    </div>
+    <div class="bl-container">
+	    <iframe id="bl-frame" src="info.html" scrolling="no"></iframe>
+    </div>
+    <div class="br-container">
+        <iframe id="br-frame" src="info.html" scrolling="no"></iframe>
+    </div>
+</body>
+
+</html>
